@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ChangeEventHandler } from 'react'
 
 // APIの返り値の型
 type PrefectureResponse = {
@@ -11,6 +11,35 @@ type PrefectureResponse = {
 type Prefecture = {
   prefCode: number
   prefName: string
+}
+
+type CheckBoxProps = {
+  id: string
+  value: string
+  checked: boolean
+  onChange: ChangeEventHandler<HTMLInputElement>
+}
+
+// チェックボックス
+const CheckBox: React.FC<CheckBoxProps> = ({
+  id,
+  value,
+  checked,
+  onChange,
+}) => {
+  return (
+    <>
+      <input
+        id={id}
+        type="checkbox"
+        name="checkbox"
+        checked={checked}
+        onChange={onChange}
+        value={value}
+      />
+      <label htmlFor={id}>{value}</label>
+    </>
+  )
 }
 
 const CheckboxList: React.FC = () => {
@@ -39,7 +68,26 @@ const CheckboxList: React.FC = () => {
     getPrefectures()
   }, [])
 
-  return <></>
+  // チェックボックスが押された時の挙動
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    console.log(e)
+  }
+
+  return (
+    <>
+      {prefectures.map((item, index) => {
+        return (
+          <CheckBox
+            key={index}
+            id={`checkbox_${index}`}
+            value={item.prefName}
+            onChange={handleChange}
+            checked={false}
+          />
+        )
+      })}
+    </>
+  )
 }
 
 export default CheckboxList
