@@ -1,6 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
+import CheckboxList from '../components/CheckboxList'
 
-const IndexPage: React.FC = () => <></>
+const IndexPage: React.FC = () => <><CheckboxList /></>
 
 export default IndexPage
