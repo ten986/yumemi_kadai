@@ -54,7 +54,7 @@ const CheckboxList: React.FC = () => {
           'https://opendata.resas-portal.go.jp/api/v1/prefectures',
           {
             headers: {
-              'X-API-KEY': '',
+              'X-API-KEY': process.env.NEXT_PUBLIC_X_API_KEY,
             },
           },
         )
