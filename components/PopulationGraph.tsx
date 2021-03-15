@@ -7,11 +7,14 @@ import {
   Tooltip,
   Legend,
   Line,
+  ResponsiveContainer,
 } from 'recharts'
 import { Population, PopulationData } from '../pages/api/population/[prefCode]'
 import { Prefecture } from '../pages/api/prefectures'
 import { CheckedItemMap } from './CheckboxList'
 import distinctColors from 'distinct-colors'
+
+import styles from './PopulationGraph.module.css'
 
 type GraphData = {
   prefCode: number
@@ -72,7 +75,7 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
     }
 
     getPopulations()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkedItems, prefectures])
 
   const PopulationComponent = useMemo(() => {
@@ -80,10 +83,11 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
       <>
         {polutaions && polutaions.length > 0 ? (
           <LineChart
+            className={styles.graph}
             width={730}
             height={250}
             data={polutaions}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -112,7 +116,7 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
     )
   }, [colors, polutaions])
 
-  return <>{PopulationComponent}</>
+  return <div className={styles.wrapper}>{PopulationComponent}</div>
 }
 
 export default PopulationGraph
