@@ -47,9 +47,8 @@ const CheckboxList: React.FC<Props> = ({
           prevMap.set(prefectureDictItem.prefecture.prefCode, e.target.checked),
         )
       })
-      console.log(checkedItems)
     },
-    [setCheckedItems, checkedItems, prefectureDict],
+    [setCheckedItems, prefectureDict],
   )
 
   const PrefecturesComponent = useMemo(() => {
