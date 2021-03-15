@@ -1,41 +1,66 @@
-# TypeScript Next.js example
+# ゆめみ課題
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+## デプロイ先
 
-## Deploy your own
+https://ten986-yumemi-kadai.vercel.app/
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+にて動いています。
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
-
-## How to use it?
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+## 動かし方
 
 ```bash
-npx create-next-app --example with-typescript with-typescript-app
-# or
-yarn create next-app --example with-typescript with-typescript-app
+git clone git@github.com:ten986/yumemi_kadai.git
+cd yumemi_kadai
+npm install
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+RESAS-API の API キーが必要なので、
+https://opendata.resas-portal.go.jp/ で利用登録し、API キーを取得する。
 
-## Notes
+※ API キーは外部に漏らさないようにすること。
 
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
+`.env.local` に API キーを記述する。
 
-```
-npm install --save-dev typescript
-```
-
-To enable TypeScript's features, we install the type declarations for React and Node.
-
-```
-npm install --save-dev @types/react @types/react-dom @types/node
+```bash
+touch .env.local
 ```
 
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
+`.env.local`
 
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
+```env
+X-API-KEY="your-api-key"
+```
 
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
+以上を実行すると、`npm run dev` で development server が起動し、`http://localhost:3000/` にて内容が確認できる。
+
+## npm script
+
+### デバッグ用に、development server を起動する
+
+```bash
+npm run dev
+```
+
+### production ビルドする
+
+```bash
+npm run build
+```
+
+### production server を起動する(production ビルドしたものの配信)
+
+```bash
+npm run start
+```
+
+### 型検査
+
+```bash
+npm run type-check
+```
+
+### lint
+
+```bash
+npm run lint
+```
