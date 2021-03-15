@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react'
+import { LineChart } from 'recharts'
 import { PopulationResult } from '../pages/api/population/[prefCode]'
 
+// 人口を表示するグラフコンポーネント
 const PopulationGraph: React.FC = () => {
   const [polutaion, setPopulation] = useState<PopulationResult>()
 
   useEffect(() => {
-    // 都道府県一覧を取得する
+    // 総人口を取得する
     const getPopulations = async () => {
       const response = await fetch('/api/population/1')
       const result: PopulationResult = await response.json()
@@ -15,11 +17,15 @@ const PopulationGraph: React.FC = () => {
     getPopulations()
   }, [])
 
-  const PrefecturesComponent = useMemo(() => {
-    return <></>
+  const PopulationComponent = useMemo(() => {
+    return (
+      <>
+        <LineChart></LineChart>
+      </>
+    )
   }, [])
 
-  return <>{PrefecturesComponent}</>
+  return <>{PopulationComponent}</>
 }
 
 export default PopulationGraph
