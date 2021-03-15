@@ -1,7 +1,5 @@
 import React, { ChangeEventHandler } from 'react'
 
-import styles from './Checkbox.module.css'
-
 type CheckBoxProps = {
   id: string
   value: string
@@ -17,7 +15,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   onChange,
 }) => {
   return (
-    <div className={styles.wrapper}>
+    <>
       <input
         id={id}
         type="checkbox"
@@ -27,7 +25,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
         value={value}
       />
       <label htmlFor={id}>{value}</label>
-    </div>
+    </>
   )
 }
 
