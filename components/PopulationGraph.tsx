@@ -7,6 +7,7 @@ import {
   Tooltip,
   Legend,
   Line,
+  ResponsiveContainer,
 } from 'recharts'
 import { Population, PopulationData } from '../pages/api/population/[prefCode]'
 import { Prefecture } from '../pages/api/prefectures'
@@ -80,11 +81,9 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
   const PopulationComponent = useMemo(() => {
     return (
       <>
-        {polutaions && polutaions.length > 0 ? (
+        <ResponsiveContainer width="100%" height={300}>
           <LineChart
             className={styles.graph}
-            width={730}
-            height={250}
             data={polutaions}
             margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
           >
@@ -98,19 +97,21 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
             <YAxis dataKey="value" />
             <Tooltip />
             <Legend layout="vertical" verticalAlign="top" align="right" />
-            {polutaions.map((s, index) => (
-              <Line
-                dataKey="value"
-                data={s.population}
-                name={s.prefName}
-                key={s.prefName}
-                stroke={colors?.[index]?.hex('rgb') ?? '#000000'}
-              />
-            ))}
+            {polutaions && polutaions.length > 0 ? (
+              polutaions.map((s, index) => (
+                <Line
+                  dataKey="value"
+                  data={s.population}
+                  name={s.prefName}
+                  key={s.prefName}
+                  stroke={colors?.[index]?.hex('rgb') ?? '#000000'}
+                />
+              ))
+            ) : (
+              <></>
+            )}
           </LineChart>
-        ) : (
-          <></>
-        )}
+        </ResponsiveContainer>
       </>
     )
   }, [colors, polutaions])
