@@ -7,7 +7,6 @@ import {
   Tooltip,
   Legend,
   Line,
-  ResponsiveContainer,
 } from 'recharts'
 import { Population, PopulationData } from '../pages/api/population/[prefCode]'
 import { Prefecture } from '../pages/api/prefectures'
