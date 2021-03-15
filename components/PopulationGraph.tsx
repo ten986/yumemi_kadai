@@ -14,6 +14,7 @@ import { CheckedItemMap } from './CheckboxList'
 import distinctColors from 'distinct-colors'
 
 type GraphData = {
+  prefCode: number
   prefName: string
   population: Population[]
 }
@@ -35,31 +36,37 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
   }, [])
 
   useEffect(() => {
-    const results: GraphData[] = []
+    // 現在のグラフ用データを取得
+    let results: GraphData[] = polutaions?.concat() ?? []
     // 総人口を取得する
     const getPopulations = async () => {
       // 各チェックボックスについて
       for (const [label, checked] of checkedItems.entries()) {
-        // チェックボックスが外れている場合
         if (!checked) {
-          continue
+          // チェックボックスが外れている場合、削除
+          results = results.filter((f) => f.prefCode != label)
+        } else {
+          // 既に存在する場合は取得しない
+          if (results.find((f) => f.prefCode == label)) {
+            continue
+          }
+          // 総人口を取得する
+          const response = await fetch(`/api/population/${label}`)
+          const result: PopulationData = await response.json()
+          // 都道府県を取得
+          const prefecture = prefectures.find(
+            (p) => p.prefCode.toString() == result.prefCode,
+          )
+          if (!prefecture) {
+            continue
+          }
+          // グラフ表示用に変換
+          results.push({
+            prefCode: prefecture.prefCode,
+            prefName: prefecture.prefName,
+            population: result.population,
+          })
         }
-        // 総人口を取得する
-        const response = await fetch(`/api/population/${label}`)
-        const result: PopulationData = await response.json()
-
-        // 都道府県を取得
-        const prefecture = prefectures.find(
-          (p) => p.prefCode.toString() == result.prefCode,
-        )
-        if (!prefecture) {
-          continue
-        }
-        // グラフ表示用に変換
-        results.push({
-          prefName: prefecture.prefName,
-          population: result.population,
-        })
       }
       setPopulations(() => results)
     }
