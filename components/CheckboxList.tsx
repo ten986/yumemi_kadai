@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, {
   useState,
   useEffect,
@@ -6,19 +5,8 @@ import React, {
   useMemo,
   useCallback,
 } from 'react'
+import { Prefecture } from '../pages/api/prefectures'
 import CheckBox from './Checkbox'
-
-// APIの返り値の型
-type PrefectureResponse = {
-  message: string
-  result: Prefecture[]
-}
-
-// APIの返り値の型
-type Prefecture = {
-  prefCode: number
-  prefName: string
-}
 
 const CheckboxList: React.FC = () => {
   // チェックボックスの状態を保持する
@@ -31,18 +19,8 @@ const CheckboxList: React.FC = () => {
   useEffect(() => {
     // 都道府県一覧を取得する
     const getPrefectures = async () => {
-      const result = await axios
-        .get<PrefectureResponse>(
-          'https://opendata.resas-portal.go.jp/api/v1/prefectures',
-          {
-            headers: {
-              'X-API-KEY': process.env.NEXT_PUBLIC_X_API_KEY,
-            },
-          },
-        )
-        .then((value) => {
-          return value.data.result
-        })
+      const response = await fetch('/api/prefectures')
+      const result: Prefecture[] = await response.json()
       console.log(result)
       setPrefectures(() => result)
     }
