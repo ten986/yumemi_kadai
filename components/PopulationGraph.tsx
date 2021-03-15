@@ -11,6 +11,7 @@ import {
 import { Population, PopulationData } from '../pages/api/population/[prefCode]'
 import { Prefecture } from '../pages/api/prefectures'
 import { CheckedItemMap } from './CheckboxList'
+import distinctColors from 'distinct-colors'
 
 type GraphData = {
   prefName: string
@@ -25,6 +26,13 @@ type Props = {
 // 人口を表示するグラフコンポーネント
 const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
   const [polutaions, setPopulations] = useState<GraphData[]>()
+  const [colors, setColors] = useState<chroma.Color[]>()
+
+  // 47都道府県分の異なる色を取得
+  useEffect(() => {
+    const color = distinctColors({ count: 47 })
+    setColors(color)
+  }, [])
 
   useEffect(() => {
     const results: GraphData[] = []
@@ -62,7 +70,7 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
   const PopulationComponent = useMemo(() => {
     return (
       <>
-        {polutaions ? (
+        {polutaions && polutaions.length > 0 ? (
           <LineChart
             width={730}
             height={250}
@@ -70,16 +78,22 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" type="number" domain={['auto', 'auto']} />
+            <XAxis
+              dataKey="year"
+              type="number"
+              domain={[1970, 2020]}
+              allowDataOverflow
+            />
             <YAxis dataKey="value" />
             <Tooltip />
-            <Legend />
-            {polutaions.map((s) => (
+            <Legend layout="vertical" verticalAlign="top" align="right" />
+            {polutaions.map((s, index) => (
               <Line
                 dataKey="value"
                 data={s.population}
                 name={s.prefName}
                 key={s.prefName}
+                stroke={colors?.[index]?.hex('rgb') ?? '#000000'}
               />
             ))}
           </LineChart>
