@@ -62,7 +62,7 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
   const PopulationComponent = useMemo(() => {
     return (
       <>
-        {polutaions ? (
+        {polutaions && polutaions.length > 0 ? (
           <LineChart
             width={730}
             height={250}
