@@ -72,6 +72,7 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
     }
 
     getPopulations()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkedItems, prefectures])
 
   const PopulationComponent = useMemo(() => {
@@ -109,7 +110,7 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
         )}
       </>
     )
-  }, [polutaions])
+  }, [colors, polutaions])
 
   return <>{PopulationComponent}</>
 }
