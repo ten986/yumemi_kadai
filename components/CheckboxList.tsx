@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react'
+import CheckBox from './Checkbox'
 
 // APIの返り値の型
 type PrefectureResponse = {
@@ -17,35 +18,6 @@ type PrefectureResponse = {
 type Prefecture = {
   prefCode: number
   prefName: string
-}
-
-type CheckBoxProps = {
-  id: string
-  value: string
-  checked: boolean
-  onChange: ChangeEventHandler<HTMLInputElement>
-}
-
-// チェックボックス
-const CheckBox: React.FC<CheckBoxProps> = ({
-  id,
-  value,
-  checked,
-  onChange,
-}) => {
-  return (
-    <>
-      <input
-        id={id}
-        type="checkbox"
-        name="checkbox"
-        checked={checked}
-        onChange={onChange}
-        value={value}
-      />
-      <label htmlFor={id}>{value}</label>
-    </>
-  )
 }
 
 const CheckboxList: React.FC = () => {
