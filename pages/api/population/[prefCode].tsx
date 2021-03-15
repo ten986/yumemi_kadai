@@ -79,4 +79,4 @@ const handler = async (
 }
 
 export default handler
-export type { PopulationData }
+export type { PopulationData, Population }
