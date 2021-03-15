@@ -21,7 +21,6 @@ const CheckboxList: React.FC = () => {
     const getPrefectures = async () => {
       const response = await fetch('/api/prefectures')
       const result: Prefecture[] = await response.json()
-      console.log(result)
       setPrefectures(() => result)
     }
 
@@ -35,9 +34,8 @@ const CheckboxList: React.FC = () => {
       setCheckedItems((prevMap) => {
         return new Map(prevMap.set(e.target.id, e.target.checked))
       })
-      console.log(checkedItems)
     },
-    [checkedItems],
+    [],
   )
 
   const PrefecturesComponent = useMemo(() => {
