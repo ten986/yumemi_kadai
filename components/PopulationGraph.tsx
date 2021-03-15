@@ -7,14 +7,11 @@ import {
   Tooltip,
   Legend,
   Line,
-  ResponsiveContainer,
 } from 'recharts'
 import { Population, PopulationData } from '../pages/api/population/[prefCode]'
 import { Prefecture } from '../pages/api/prefectures'
 import { CheckedItemMap } from './CheckboxList'
 import distinctColors from 'distinct-colors'
-
-import styles from './PopulationGraph.module.css'
 
 type GraphData = {
   prefCode: number
@@ -75,17 +72,17 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
     }
 
     getPopulations()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkedItems, prefectures])
 
   const PopulationComponent = useMemo(() => {
     return (
       <>
-        <ResponsiveContainer width="100%" height={300}>
+        {polutaions && polutaions.length > 0 ? (
           <LineChart
-            className={styles.graph}
+            width={730}
+            height={250}
             data={polutaions}
-            margin={{ top: 5, right: 30, left: 30, bottom: 5 }}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -97,26 +94,24 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
             <YAxis dataKey="value" />
             <Tooltip />
             <Legend layout="vertical" verticalAlign="top" align="right" />
-            {polutaions && polutaions.length > 0 ? (
-              polutaions.map((s, index) => (
-                <Line
-                  dataKey="value"
-                  data={s.population}
-                  name={s.prefName}
-                  key={s.prefName}
-                  stroke={colors?.[index]?.hex('rgb') ?? '#000000'}
-                />
-              ))
-            ) : (
-              <></>
-            )}
+            {polutaions.map((s, index) => (
+              <Line
+                dataKey="value"
+                data={s.population}
+                name={s.prefName}
+                key={s.prefName}
+                stroke={colors?.[index]?.hex('rgb') ?? '#000000'}
+              />
+            ))}
           </LineChart>
-        </ResponsiveContainer>
+        ) : (
+          <></>
+        )}
       </>
     )
-  }, [colors, polutaions])
+  }, [polutaions])
 
-  return <div className={styles.wrapper}>{PopulationComponent}</div>
+  return <>{PopulationComponent}</>
 }
 
 export default PopulationGraph
