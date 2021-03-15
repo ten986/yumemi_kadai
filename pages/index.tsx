@@ -14,7 +14,7 @@ const IndexPage: React.FC = () => {
         checkedItems={checkedItems}
         setCheckedItems={setCheckedItems}
       />
-      <PopulationGraph />
+      <PopulationGraph checkedItems={checkedItems} />
     </>
   )
 }

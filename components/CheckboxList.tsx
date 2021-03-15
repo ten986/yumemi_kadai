@@ -8,10 +8,12 @@ import React, {
 import { Prefecture } from '../pages/api/prefectures'
 import CheckBox from './Checkbox'
 
+type CheckedItemMap = Map<string, boolean>
+
 type Props = {
   // チェックボックスの値を保持する
-  checkedItems: Map<string, boolean>
-  setCheckedItems: React.Dispatch<React.SetStateAction<Map<string, boolean>>>
+  checkedItems: CheckedItemMap
+  setCheckedItems: React.Dispatch<React.SetStateAction<CheckedItemMap>>
 }
 
 const CheckboxList: React.FC<Props> = ({ checkedItems, setCheckedItems }) => {
@@ -59,3 +61,5 @@ const CheckboxList: React.FC<Props> = ({ checkedItems, setCheckedItems }) => {
 }
 
 export default CheckboxList
+
+export type { CheckedItemMap }
