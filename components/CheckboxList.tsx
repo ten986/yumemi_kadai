@@ -1,5 +1,11 @@
 import axios from 'axios'
-import React, { useState, useEffect, ChangeEventHandler } from 'react'
+import React, {
+  useState,
+  useEffect,
+  ChangeEventHandler,
+  useMemo,
+  useCallback,
+} from 'react'
 
 // APIの返り値の型
 type PrefectureResponse = {
@@ -43,6 +49,10 @@ const CheckBox: React.FC<CheckBoxProps> = ({
 }
 
 const CheckboxList: React.FC = () => {
+  // チェックボックスの状態を保持する
+  const [checkedItems, setCheckedItems] = useState<Map<string, boolean>>(
+    new Map<string, boolean>(),
+  )
   // 都道府県一覧
   const [prefectures, setPrefectures] = useState<Prefecture[]>([])
 
@@ -62,32 +72,40 @@ const CheckboxList: React.FC = () => {
           return value.data.result
         })
       console.log(result)
-      setPrefectures(result)
+      setPrefectures(() => result)
     }
 
     getPrefectures()
   }, [])
 
   // チェックボックスが押された時の挙動
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    console.log(e)
-  }
-
-  return (
-    <>
-      {prefectures.map((item, index) => {
-        return (
-          <CheckBox
-            key={index}
-            id={`checkbox_${index}`}
-            value={item.prefName}
-            onChange={handleChange}
-            checked={false}
-          />
-        )
-      })}
-    </>
+  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      // チェックボックスの状態を更新
+      setCheckedItems((prevMap) => {
+        return new Map(prevMap.set(e.target.id, e.target.checked))
+      })
+      console.log(checkedItems)
+    },
+    [checkedItems],
   )
+
+  const PrefecturesComponent = useMemo(() => {
+    return prefectures.map((item, index) => {
+      const id = `checkbox_${index}`
+      return (
+        <CheckBox
+          key={index}
+          id={id}
+          value={item.prefName}
+          onChange={handleChange}
+          checked={checkedItems.get(id) ?? false}
+        />
+      )
+    })
+  }, [prefectures, handleChange, checkedItems])
+
+  return <>{PrefecturesComponent}</>
 }
 
 export default CheckboxList
