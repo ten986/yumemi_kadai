@@ -4,6 +4,8 @@ import Header from '../components/Header'
 import PopulationGraph from '../components/PopulationGraph'
 import { Prefecture } from './api/prefectures'
 
+import styles from './index.module.css'
+
 const IndexPage: React.FC = () => {
   // 都道府県一覧
   const [prefectures, setPrefectures] = useState<Prefecture[]>([])
@@ -26,13 +28,18 @@ const IndexPage: React.FC = () => {
 
   return (
     <>
-      <Header/>
-      <CheckboxList
-        prefectures={prefectures}
-        checkedItems={checkedItems}
-        setCheckedItems={setCheckedItems}
-      />
-      <PopulationGraph checkedItems={checkedItems} prefectures={prefectures} />
+      <Header />
+      <div className={styles.page}>
+        <CheckboxList
+          prefectures={prefectures}
+          checkedItems={checkedItems}
+          setCheckedItems={setCheckedItems}
+        />
+        <PopulationGraph
+          checkedItems={checkedItems}
+          prefectures={prefectures}
+        />
+      </div>
     </>
   )
 }
