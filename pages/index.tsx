@@ -19,8 +19,8 @@ const IndexPage: React.FC = () => {
   }, [])
 
   // チェックボックスの状態を保持する
-  const [checkedItems, setCheckedItems] = useState<Map<string, boolean>>(
-    new Map<string, boolean>(),
+  const [checkedItems, setCheckedItems] = useState<Map<number, boolean>>(
+    new Map<number, boolean>(),
   )
 
   return (
