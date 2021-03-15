@@ -30,11 +30,14 @@ const IndexPage: React.FC = () => {
     <>
       <Header />
       <div className={styles.page}>
-        <CheckboxList
-          prefectures={prefectures}
-          checkedItems={checkedItems}
-          setCheckedItems={setCheckedItems}
-        />
+        <div>
+          <h1>都道府県</h1>
+          <CheckboxList
+            prefectures={prefectures}
+            checkedItems={checkedItems}
+            setCheckedItems={setCheckedItems}
+          />
+        </div>
         <PopulationGraph
           checkedItems={checkedItems}
           prefectures={prefectures}
