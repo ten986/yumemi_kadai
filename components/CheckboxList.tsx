@@ -8,11 +8,13 @@ import React, {
 import { Prefecture } from '../pages/api/prefectures'
 import CheckBox from './Checkbox'
 
-const CheckboxList: React.FC = () => {
-  // チェックボックスの状態を保持する
-  const [checkedItems, setCheckedItems] = useState<Map<string, boolean>>(
-    new Map<string, boolean>(),
-  )
+type Props = {
+  // チェックボックスの値を保持する
+  checkedItems: Map<string, boolean>
+  setCheckedItems: React.Dispatch<React.SetStateAction<Map<string, boolean>>>
+}
+
+const CheckboxList: React.FC<Props> = ({ checkedItems, setCheckedItems }) => {
   // 都道府県一覧
   const [prefectures, setPrefectures] = useState<Prefecture[]>([])
 
@@ -35,7 +37,7 @@ const CheckboxList: React.FC = () => {
         return new Map(prevMap.set(e.target.id, e.target.checked))
       })
     },
-    [],
+    [setCheckedItems],
   )
 
   const PrefecturesComponent = useMemo(() => {
