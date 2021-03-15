@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import CheckboxList from '../components/CheckboxList'
+import Header from '../components/Header'
 import PopulationGraph from '../components/PopulationGraph'
 import { Prefecture } from './api/prefectures'
+
+import styles from './index.module.css'
 
 const IndexPage: React.FC = () => {
   // 都道府県一覧
@@ -25,12 +28,21 @@ const IndexPage: React.FC = () => {
 
   return (
     <>
-      <CheckboxList
-        prefectures={prefectures}
-        checkedItems={checkedItems}
-        setCheckedItems={setCheckedItems}
-      />
-      <PopulationGraph checkedItems={checkedItems} prefectures={prefectures} />
+      <Header />
+      <div className={styles.page}>
+        <div>
+          <h1>都道府県</h1>
+          <CheckboxList
+            prefectures={prefectures}
+            checkedItems={checkedItems}
+            setCheckedItems={setCheckedItems}
+          />
+        </div>
+        <PopulationGraph
+          checkedItems={checkedItems}
+          prefectures={prefectures}
+        />
+      </div>
     </>
   )
 }
