@@ -9,45 +9,66 @@ import {
   Line,
 } from 'recharts'
 import { PopulationData } from '../pages/api/population/[prefCode]'
+import { CheckedItemMap } from './CheckboxList'
+
+type Props = {
+  checkedItems: CheckedItemMap
+}
 
 // 人口を表示するグラフコンポーネント
-const PopulationGraph: React.FC = () => {
-  const [polutaion, setPopulation] = useState<PopulationData>()
+const PopulationGraph: React.FC<Props> = ({ checkedItems: checkedItems }) => {
+  const [polutaions, setPopulations] = useState<PopulationData[]>()
 
   useEffect(() => {
+    const results: PopulationData[] = []
     // 総人口を取得する
     const getPopulations = async () => {
-      const response = await fetch('/api/population/1')
-      const result: PopulationData = await response.json()
-      setPopulation(() => result)
+      // 各チェックボックスについて
+      for (const [label, checked] of checkedItems.entries()) {
+        // チェックボックスが外れている場合
+        if (!checked) {
+          continue
+        }
+        const response = await fetch(`/api/population/${label}`)
+        const result: PopulationData = await response.json()
+        results.push(result)
+      }
+      setPopulations(() => results)
     }
 
     getPopulations()
-  }, [])
+  }, [checkedItems])
 
   const PopulationComponent = useMemo(() => {
     return (
       <>
-        {polutaion ? (
+        {polutaions ? (
           <LineChart
             width={730}
             height={250}
-            data={polutaion.population}
+            data={polutaions}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" />
-            <YAxis />
+            <XAxis dataKey="year" type="number" domain={['auto', 'auto']} />
+            <YAxis dataKey="value" />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="value" stroke="#82ca9d" />
+            {polutaions.map((s) => (
+              <Line
+                dataKey="value"
+                data={s.population}
+                name={s.prefCode}
+                key={s.prefCode}
+              />
+            ))}
           </LineChart>
         ) : (
           <></>
         )}
       </>
     )
-  }, [polutaion])
+  }, [polutaions])
 
   return <>{PopulationComponent}</>
 }
