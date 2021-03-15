@@ -70,7 +70,12 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" type="number" domain={['auto', 'auto']} />
+            <XAxis
+              dataKey="year"
+              type="number"
+              domain={[1970, 2020]}
+              allowDataOverflow
+            />
             <YAxis dataKey="value" />
             <Tooltip />
             <Legend layout="vertical" verticalAlign="top" align="right" />
