@@ -73,7 +73,7 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
             <XAxis dataKey="year" type="number" domain={['auto', 'auto']} />
             <YAxis dataKey="value" />
             <Tooltip />
-            <Legend />
+            <Legend layout="vertical" verticalAlign="top" align="right" />
             {polutaions.map((s) => (
               <Line
                 dataKey="value"
