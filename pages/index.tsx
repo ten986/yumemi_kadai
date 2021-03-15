@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CheckboxList from '../components/CheckboxList'
+import Header from '../components/Header'
 import PopulationGraph from '../components/PopulationGraph'
 import { Prefecture } from './api/prefectures'
 
@@ -25,6 +26,7 @@ const IndexPage: React.FC = () => {
 
   return (
     <>
+      <Header/>
       <CheckboxList
         prefectures={prefectures}
         checkedItems={checkedItems}
