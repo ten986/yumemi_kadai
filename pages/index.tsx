@@ -30,7 +30,7 @@ const IndexPage: React.FC = () => {
         checkedItems={checkedItems}
         setCheckedItems={setCheckedItems}
       />
-      <PopulationGraph checkedItems={checkedItems} />
+      <PopulationGraph checkedItems={checkedItems} prefectures={prefectures} />
     </>
   )
 }

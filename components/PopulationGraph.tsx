@@ -8,19 +8,26 @@ import {
   Legend,
   Line,
 } from 'recharts'
-import { PopulationData } from '../pages/api/population/[prefCode]'
+import { Population, PopulationData } from '../pages/api/population/[prefCode]'
+import { Prefecture } from '../pages/api/prefectures'
 import { CheckedItemMap } from './CheckboxList'
+
+type GraphData = {
+  prefName: string
+  population: Population[]
+}
 
 type Props = {
   checkedItems: CheckedItemMap
+  prefectures: Prefecture[]
 }
 
 // 人口を表示するグラフコンポーネント
-const PopulationGraph: React.FC<Props> = ({ checkedItems: checkedItems }) => {
-  const [polutaions, setPopulations] = useState<PopulationData[]>()
+const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
+  const [polutaions, setPopulations] = useState<GraphData[]>()
 
   useEffect(() => {
-    const results: PopulationData[] = []
+    const results: GraphData[] = []
     // 総人口を取得する
     const getPopulations = async () => {
       // 各チェックボックスについて
@@ -29,15 +36,28 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems: checkedItems }) => {
         if (!checked) {
           continue
         }
+        // 総人口を取得する
         const response = await fetch(`/api/population/${label}`)
         const result: PopulationData = await response.json()
-        results.push(result)
+
+        // 都道府県を取得
+        const prefecture = prefectures.find(
+          (p) => p.prefCode.toString() == result.prefCode,
+        )
+        if (!prefecture) {
+          continue
+        }
+        // グラフ表示用に変換
+        results.push({
+          prefName: prefecture.prefName,
+          population: result.population,
+        })
       }
       setPopulations(() => results)
     }
 
     getPopulations()
-  }, [checkedItems])
+  }, [checkedItems, prefectures])
 
   const PopulationComponent = useMemo(() => {
     return (
@@ -58,8 +78,8 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems: checkedItems }) => {
               <Line
                 dataKey="value"
                 data={s.population}
-                name={s.prefCode}
-                key={s.prefCode}
+                name={s.prefName}
+                key={s.prefName}
               />
             ))}
           </LineChart>
