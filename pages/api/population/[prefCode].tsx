@@ -26,11 +26,23 @@ type Population = {
   value: number
 }
 
+// このAPIでの返り値
+type PopulationData = {
+  prefCode: string
+  population: Population[]
+}
+
 const handler = async (
   { query: { prefCode } }: NextApiRequest,
-  res: NextApiResponse<PopulationResult>,
+  res: NextApiResponse<PopulationData>,
 ) => {
-  const result = await axios
+  // クエリはstringである必要がある
+  if (!(typeof prefCode === 'string')) {
+    res.status(400)
+    return
+  }
+
+  const result: PopulationData | undefined = await axios
     .get<PopulationResponse>(
       'https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear',
       {
@@ -45,11 +57,26 @@ const handler = async (
     .then((value) => {
       const result = value.data.result
       // 総人口を取得
-      result.data = result.data.filter((r) => r.label == '総人口')
-      return result
+      const population = result.data.find((r) => r.label == '総人口')?.data
+      if (!population) {
+        res.status(400)
+        return undefined
+      }
+      // APIの返り値に直す
+      return {
+        prefCode: prefCode,
+        population: population,
+      }
     })
+
+  // 結果が正しくない場合
+  if (!result) {
+    res.status(400)
+    return
+  }
+
   res.status(200).json(result)
 }
 
 export default handler
-export type { PopulationResult }
+export type { PopulationData }
