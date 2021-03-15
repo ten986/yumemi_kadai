@@ -50,7 +50,7 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems: checkedItems }) => {
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" />
+            <XAxis dataKey="year" type="number" domain={['auto', 'auto']} />
             <YAxis dataKey="value" />
             <Tooltip />
             <Legend />
