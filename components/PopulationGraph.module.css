@@ -16,12 +16,12 @@
 }
 @media (min-width: 480px) {
   .graph {
-    font-size: calc(0.5rem + ((1vw - 4.8px) * 0.5556));
+    font-size: calc(0.5rem + ((1vw - 4.8px) * 0.2778));
     min-height: 0vw;
   }
 }
 @media (min-width: 1920px) {
   .graph {
-    font-size: 16px;
+    font-size: 12px;
   }
 }
