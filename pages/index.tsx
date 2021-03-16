@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CheckboxList from '../components/CheckboxList'
 import Header from '../components/Header'
-import PopulationGraph from '../components/PopulationGraph'
+// import PopulationGraph from '../componzents/PopulationGraph'
 import { Prefecture } from './api/prefectures'
 
 import styles from './index.module.css'
@@ -38,10 +38,10 @@ const IndexPage: React.FC = () => {
             setCheckedItems={setCheckedItems}
           />
         </div>
-        <PopulationGraph
+        {/* <PopulationGraph
           checkedItems={checkedItems}
           prefectures={prefectures}
-        />
+        /> */}
       </div>
     </>
   )
