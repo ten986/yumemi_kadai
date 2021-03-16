@@ -2,6 +2,8 @@ import React, { ChangeEventHandler, useMemo, useCallback } from 'react'
 import { Prefecture } from '../pages/api/prefectures'
 import CheckBox from './Checkbox'
 
+import styles from './CheckboxList.module.css'
+
 type CheckedItemMap = Map<number, boolean>
 
 type Props = {
@@ -65,7 +67,7 @@ const CheckboxList: React.FC<Props> = ({
     })
   }, [prefectureDict, handleChange, checkedItems])
 
-  return <>{PrefecturesComponent}</>
+  return <div className={styles.wrapper}>{PrefecturesComponent}</div>
 }
 
 export default CheckboxList
