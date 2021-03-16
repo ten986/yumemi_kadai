@@ -5,9 +5,9 @@ import Checkbox from '../Checkbox'
 
 describe('Checkbox', () => {
   it('北海道でrenderする', () => {
-    let checked = false
+    const checked = false
     const handleChange = () => {
-      checked = !checked
+      checked
     }
     const checkbox = shallow(
       <Checkbox
@@ -19,5 +19,6 @@ describe('Checkbox', () => {
     )
 
     expect(checkbox).toMatchSnapshot()
+    expect(checkbox.text()).toBe('北海道')
   })
 })
