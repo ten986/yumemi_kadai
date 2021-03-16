@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox 北海道でrenderする 1`] = `
+<div
+  className="wrapper"
+>
+  <input
+    checked={false}
+    id="checkbox"
+    name="checkbox"
+    onChange={[Function]}
+    type="checkbox"
+    value="北海道"
+  />
+  <label
+    htmlFor="checkbox"
+  >
+    北海道
+  </label>
+</div>
+`;
