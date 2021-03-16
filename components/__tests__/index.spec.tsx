@@ -5,6 +5,7 @@ import { mount } from 'enzyme'
 
 import IndexPage from 'pages/index'
 import { Prefecture } from 'pages/api/prefectures'
+import ResizeObserver from 'resize-observer-polyfill'
 
 const prefectures: Prefecture[] = [
   {
@@ -37,6 +38,11 @@ describe('IndexPage', () => {
         body: prefectures,
       },
     )
+    // ResizeObserver を mock
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const windowAny: any = window
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    windowAny.ResizeObserver = ResizeObserver
   })
   afterEach(() => {
     // mock をリセット

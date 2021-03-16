@@ -150,6 +150,87 @@ exports[`IndexPage スナップショットが一致するか 1`] = `
         </div>
       </CheckboxList>
     </div>
+    <PopulationGraph
+      checkedItems={Map {}}
+      prefectures={
+        Array [
+          Object {
+            "prefCode": 1,
+            "prefName": "北海道",
+          },
+          Object {
+            "prefCode": 2,
+            "prefName": "青森県",
+          },
+          Object {
+            "prefCode": 3,
+            "prefName": "岩手県",
+          },
+          Object {
+            "prefCode": 4,
+            "prefName": "宮城県",
+          },
+        ]
+      }
+    >
+      <div
+        className="wrapper"
+      >
+        <ResponsiveContainer
+          debounce={0}
+          height={300}
+          width="100%"
+        >
+          <ResizeDetector
+            handleHeight={true}
+            handleWidth={true}
+            onResize={[Function]}
+            targetRef={
+              Object {
+                "current": <div
+                  class="recharts-responsive-container"
+                  style="width: 100%; height: 300px;"
+                />,
+              }
+            }
+          >
+            <div
+              className="recharts-responsive-container"
+              style={
+                Object {
+                  "height": 300,
+                  "maxHeight": undefined,
+                  "minHeight": undefined,
+                  "minWidth": undefined,
+                  "width": "100%",
+                }
+              }
+            >
+              <LineChart
+                barCategoryGap="10%"
+                barGap={4}
+                className="graph"
+                data={Array []}
+                height={300}
+                layout="horizontal"
+                margin={
+                  Object {
+                    "bottom": 5,
+                    "left": 30,
+                    "right": 30,
+                    "top": 5,
+                  }
+                }
+                reverseStackOrder={false}
+                stackOffset="none"
+                syncMethod="index"
+                width={0}
+              />
+            </div>
+          </ResizeDetector>
+        </ResponsiveContainer>
+      </div>
+    </PopulationGraph>
   </div>
 </IndexPage>
 `;
