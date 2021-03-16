@@ -7,3 +7,21 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* https://websemantics.uk/tools/responsive-font-calculator/ を用いて計算 */
+@media (min-width: 0px) {
+  .graph {
+    font-size: 8px;
+  }
+}
+@media (min-width: 480px) {
+  .graph {
+    font-size: calc(0.5rem + ((1vw - 4.8px) * 0.5556));
+    min-height: 0vw;
+  }
+}
+@media (min-width: 1920px) {
+  .graph {
+    font-size: 16px;
+  }
+}
