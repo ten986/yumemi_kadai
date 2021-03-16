@@ -2,7 +2,7 @@
 
 ## デプロイ先
 
-https://ten986-yumemi-kadai.vercel.app/
+<https://ten986-yumemi-kadai.vercel.app/>
 
 にて動いています。
 
@@ -15,7 +15,7 @@ npm install
 ```
 
 RESAS-API の API キーが必要なので、
-https://opendata.resas-portal.go.jp/ で利用登録し、API キーを取得する。
+<https://opendata.resas-portal.go.jp/> で利用登録し、API キーを取得する。
 
 ※ API キーは外部に漏らさないようにすること。
 
