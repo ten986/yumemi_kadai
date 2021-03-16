@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox スナップショットが一致するか 1`] = `
+<div
+  className="wrapper"
+>
+  <input
+    checked={false}
+    id="checkbox"
+    name="checkbox"
+    onChange={[MockFunction]}
+    type="checkbox"
+    value="北海道"
+  />
+  <label
+    htmlFor="checkbox"
+  >
+    北海道
+  </label>
+</div>
+`;
