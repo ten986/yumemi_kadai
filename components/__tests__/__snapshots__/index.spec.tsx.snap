@@ -216,8 +216,8 @@ exports[`IndexPage スナップショットが一致するか 1`] = `
                 margin={
                   Object {
                     "bottom": 5,
-                    "left": 30,
-                    "right": 30,
+                    "left": 15,
+                    "right": 15,
                     "top": 5,
                   }
                 }
