@@ -53,6 +53,18 @@ npm run build
 npm run start
 ```
 
+### テスト
+
+```bash
+npm run test
+```
+
+### テストで、スナップショットを更新する場合
+
+```bash
+npm run test:update
+```
+
 ### 型検査
 
 ```bash
