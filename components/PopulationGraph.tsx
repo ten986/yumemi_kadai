@@ -85,7 +85,7 @@ const PopulationGraph: React.FC<Props> = ({ checkedItems, prefectures }) => {
           <LineChart
             className={styles.graph}
             data={polutaions}
-            margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+            margin={{ top: 5, right: 15, left: 15, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
